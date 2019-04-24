@@ -1,0 +1,19 @@
+{
+  "name": "phoneApp",
+  "scripts": {
+    "start": "react-native start",
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "check": "react-native upgrade --legacy"
+  },
+  "dependencies": {
+    "expo": "^32.0.6",
+    "react": "^16.6.0",
+    "react-native": "^0.57.3"
+  },
+  "devDependencies": {
+    "@babel/runtime": "^7.4.3",
+    "babel-preset-expo": "^5.0.0"
+  },
+  "private": true
+}
