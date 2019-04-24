@@ -4,7 +4,9 @@
     "start": "react-native start",
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "check": "react-native upgrade --legacy"
+    "check": "react-native upgrade --legacy",
+    "log-android": "react-native log-android",
+    "react-devtools": "react-devtools"
   },
   "dependencies": {
     "expo": "^32.0.6",
