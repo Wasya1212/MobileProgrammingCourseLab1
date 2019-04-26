@@ -12,7 +12,7 @@ class Auth extends Component {
     return (
       <View>
         <Text>Login page</Text>
-        <Button disabled text="Disabled" title={(() => ('asd'))()} />
+        <Button title="Login" onPress={this.loginHandler} />
       </View>
     );
   }

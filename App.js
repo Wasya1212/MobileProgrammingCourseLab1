@@ -1,13 +1,13 @@
 import { Navigation } from "react-native-navigation";
 
 import AuthScreen from "./src/screens/Auth/Auth";
-// import DocumentationScreen from "./src/screens/Documentation/Documentation";
-// import PassCodeScreen from "./src/screens/PassCode/PassCode";
+import DocumentationScreen from "./src/screens/Documentation/Documentation";
+import PassCodeScreen from "./src/screens/PassCode/PassCode";
 
 // Register screens
 Navigation.registerComponent('remote-control.AuthScreen', () => AuthScreen);
-// Navigation.registerComponent('remote-control.DocumentationScreen', () => DocumentationScreen);
-// Navigation.registerComponent('remote-control.PassCodeScreen', () => PassCodeScreen);
+Navigation.registerComponent('remote-control.DocumentationScreen', () => DocumentationScreen);
+Navigation.registerComponent('remote-control.PassCodeScreen', () => PassCodeScreen);
 
 // Start a app
 Navigation.setRoot({
