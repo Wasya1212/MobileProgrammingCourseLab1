@@ -6,12 +6,14 @@
     "ios": "react-native run-ios",
     "check": "react-native upgrade --legacy",
     "log-android": "react-native log-android",
-    "react-devtools": "react-devtools"
+    "react-devtools": "react-devtools",
+    "androidapk": "cd ./android && ./gradlew app:assembleDebug && ./gradlew installDebug"
   },
   "dependencies": {
     "expo": "^32.0.6",
     "react": "^16.6.0",
-    "react-native": "^0.57.3"
+    "react-native": "^0.57.3",
+    "react-native-navigation": "^2.18.2"
   },
   "devDependencies": {
     "@babel/runtime": "^7.4.3",
