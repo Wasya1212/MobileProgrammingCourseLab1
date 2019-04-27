@@ -12,7 +12,8 @@ const menuItems = [
       text: 'Remote Control',
       title: 'Remote Control',
       name: 'remote-control.RemoteControlScreen'
-    }
+    },
+    icon: 'settings-remote'
   },
   {
     text: 'Commands screen',
@@ -21,7 +22,8 @@ const menuItems = [
       text: 'Commands',
       title: 'Commands',
       name: 'remote-control.CommandsScreen'
-    }
+    },
+    icon: 'line-weight'
   },
   {
     text: 'Video translation screen',
@@ -30,7 +32,8 @@ const menuItems = [
       text: 'Video translation',
       title: 'Video translation',
       name: 'remote-control.VideoTranslationScreen'
-    }
+    },
+    icon: 'important-devices'
   },
   {
     text: 'Remote TV screen',
@@ -39,7 +42,8 @@ const menuItems = [
       text: 'TV remote',
       title: 'TV remote',
       name: 'remote-control.RemoteTVScreen'
-    }
+    },
+    icon: 'live-tv'
   },
   {
     text: 'Presentation mode screen',
@@ -48,7 +52,8 @@ const menuItems = [
       text: 'Presentation mode',
       title: 'Presentation mode',
       name: 'remote-control.PresentationModeScreen'
-    }
+    },
+    icon: 'airplay'
   },
   {
     text: 'Documentation screen',
@@ -57,7 +62,8 @@ const menuItems = [
       text: 'Documentation',
       title: 'Documentation',
       name: 'remote-control.DocumentationScreen'
-    }
+    },
+    icon: 'library-books'
   }
 ];
 
