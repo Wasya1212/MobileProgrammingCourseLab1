@@ -2,12 +2,24 @@ import { Navigation } from "react-native-navigation";
 
 import AuthScreen from "./src/screens/Auth/Auth";
 import DocumentationScreen from "./src/screens/Documentation/Documentation";
+import CommandsScreen from "./src/screens/Commands/Commands";
+import PresentationModeScreen from "./src/screens/PresentationMode/PresentationMode";
+import RemoteControlScreen from "./src/screens/RemoteControl/RemoteControl";
+import RemoteTVScreen from "./src/screens/RemoteTV/RemoteTV";
+import VideoTranslationScreen from "./src/screens/VideoTranslation/VideoTranslation";
 import PassCodeScreen from "./src/screens/PassCode/PassCode";
+import NavigationScreen from "./src/screens/Navigation/Navigation";
 
 // Register screens
 Navigation.registerComponent('remote-control.AuthScreen', () => AuthScreen);
 Navigation.registerComponent('remote-control.DocumentationScreen', () => DocumentationScreen);
+Navigation.registerComponent('remote-control.CommandsScreen', () => CommandsScreen);
+Navigation.registerComponent('remote-control.PresentationModeScreen', () => PresentationModeScreen);
+Navigation.registerComponent('remote-control.RemoteControlScreen', () => RemoteControlScreen);
+Navigation.registerComponent('remote-control.RemoteTVScreen', () => RemoteTVScreen);
+Navigation.registerComponent('remote-control.VideoTranslationScreen', () => VideoTranslationScreen);
 Navigation.registerComponent('remote-control.PassCodeScreen', () => PassCodeScreen);
+Navigation.registerComponent('remote-control.NavigationScreen', () => NavigationScreen);
 
 // Start a app
 Navigation.setRoot({
