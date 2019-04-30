@@ -5,19 +5,13 @@ import logoImage from "../../assets/logo.png";
 
 import startNavigationScreen from "../MainTabs/StartNavigationScreen";
 
-export default class PassCode extends Component {
-  state = {
-    passCode: ''
-  }
+import DefaultInput from "../../components/UI/DefaultInput";
 
+export default class PassCode extends Component {
   passCodeHandler = val => {
     if (val.length == 5 && val.toString() == '12345') {
       startNavigationScreen();
     }
-
-    this.setState({
-      passCode: val
-    });
   }
 
   render() {
@@ -27,11 +21,10 @@ export default class PassCode extends Component {
           style={styles.logoImage}
           source={logoImage}
         />
-        <TextInput
-          style={styles.passInput}
-          value={this.state.passCode}
+        <DefaultInput
           placeholder="Enter your pass code..."
           onChangeText={this.passCodeHandler}
+          style={styles.passInput}
         />
       </View>
     );
@@ -46,13 +39,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   passInput: {
-    width: '90%',
-    paddingLeft: 15,
-    paddingRight: 15,
-    borderBottomWidth: 3,
-    borderRadius: 5,
-    borderColor: '#368fce',
-    fontSize: 21
+    borderColor: '#368fce'
   },
   logoImage: {
     width: 150,
