@@ -5,6 +5,7 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "check": "react-native upgrade --legacy",
+    "link": "react-native link react-native-sensors",
     "log-android": "react-native log-android",
     "react-devtools": "react-devtools",
     "androidapk": "cd ./android && ./gradlew app:assembleDebug && ./gradlew installDebug"
@@ -14,6 +15,7 @@
     "react": "^16.6.0",
     "react-native": "^0.57.5",
     "react-native-navigation": "^2.18.2",
+    "react-native-sensors": "^5.1.8",
     "react-native-vector-icons": "^6.4.2"
   },
   "devDependencies": {

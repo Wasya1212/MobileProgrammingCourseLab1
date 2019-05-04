@@ -10,7 +10,8 @@ export default class RemoteControl extends Component {
       connected: false
     };
 
-    this.socket = new WebSocket('ws://10.0.2.2:8080/');
+    this.socket = new WebSocket('ws://192.168.1.5:8080/');
+    alert('ws://192.168.1.5:8080/')
     this.socket.onopen = () => {
       this.setState({connected:true})
     };
