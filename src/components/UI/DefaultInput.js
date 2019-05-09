@@ -14,19 +14,11 @@ const styles = StyleSheet.create({
 });
 
 class DefaultInput extends Component {
-  state = {
-    value: ''
-  }
-
   constructor(props) {
     super(props);
   }
 
   changeTextHandler = val => {
-    this.setState({
-      value: val
-    });
-
     this.props.onChangeText(val);
   }
 
@@ -35,7 +27,6 @@ class DefaultInput extends Component {
       <TextInput
         {...this.props}
         style={[ styles.input, this.props.style ]}
-        value={this.state.value}
         onChangeText={this.changeTextHandler}
       />
     );

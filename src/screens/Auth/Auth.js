@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from 'redux'
-import { View, Text, Button } from "react-native";
+import { View, Text, Button, AsyncStorage } from "react-native";
 
 import startPassCodeScreen from "../MainTabs/StartPassCodeScreen";
 
@@ -18,27 +18,50 @@ const mapDispatchToProps = dispatch => {
   }
 };
 
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     dispatch,
-//     userActions: bindActionCreators({ onAddUser: addUser }, dispatch)
-//   }
-// }
+const storeAuthData = async data => {
+  try {
+    await AsyncStorage.setItem('UID123', JSON.stringify(data));
+  } catch (error) {
+    alert("Cannot save auth data localy!");
+  }
+}
 
 class Auth extends Component {
-  state = {
-    email: '',
-    password: ''
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      email: '',
+      password: ''
+    };
+  }
+
+  componentWillMount() {
+    AsyncStorage.getItem('UID123')
+      .then(result => {
+        const json = JSON.parse(result);
+
+        this.setState({
+          email: json.email,
+          password: json.password
+        });
+      })
+      .catch(err => {
+        alert(err);
+      });
   }
 
   loginHandler = () => {
-    console.log(`${this.state.email}, ${this.state.password}`)
     axios.post('https://remotedesktopweb.herokuapp.com/login', {
       email: this.state.email.toString().toLowerCase().trim(),
       password: this.state.password.toString().toLowerCase().trim()
     })
     .then(({ data: user }) => {
-      // alert(`${user.email}, ${user.password}, ${user.ip}`);
+      storeAuthData({
+        email: user.email,
+        password: this.state.password.toString().toLowerCase().trim()
+      });
+
       this.props.onAddUser(user.email, this.state.password.toString().toLowerCase().trim(), user.ip);
       startPassCodeScreen();
     })
@@ -62,9 +85,8 @@ class Auth extends Component {
   render() {
     return (
       <View>
-        <Text>{`${this.props.user.email}, ${this.props.user.password}, ${this.props.user.ip}`}</Text>
-        <DefaultInput placeholder="Email" value={this.state.email} onChangeText={this.changeEmailLoginData}/>
-        <DefaultInput placeholder="Password" value={this.state.password} onChangeText={this.changePasswordLoginData}/>
+        <DefaultInput textContentType="emailAddress" placeholder="Email" value={this.state.email} onChangeText={this.changeEmailLoginData} />
+        <DefaultInput textContentType="password" placeholder="Password" value={this.state.password} onChangeText={this.changePasswordLoginData} />
         <DefaultButton onPress={this.loginHandler}>Sign in</DefaultButton>
       </View>
     );
