@@ -11,12 +11,15 @@
     "androidapk": "cd ./android && ./gradlew app:assembleDebug && ./gradlew installDebug"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "expo": "^32.0.6",
     "react": "^16.6.0",
-    "react-native": "^0.57.5",
+    "react-native": "^0.59.6",
     "react-native-navigation": "^2.18.2",
     "react-native-sensors": "^5.1.8",
-    "react-native-vector-icons": "^6.4.2"
+    "react-native-vector-icons": "^6.4.2",
+    "react-redux": "^5.1.0",
+    "redux": "^4.0.1"
   },
   "devDependencies": {
     "@babel/runtime": "^7.4.3",

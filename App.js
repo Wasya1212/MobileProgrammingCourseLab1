@@ -1,3 +1,6 @@
+import React from "react";
+import { Provider } from "react-redux";
+
 import { Navigation } from "react-native-navigation";
 
 import AuthScreen from "./src/screens/Auth/Auth";
@@ -9,9 +12,16 @@ import RemoteTVScreen from "./src/screens/RemoteTV/RemoteTV";
 import VideoTranslationScreen from "./src/screens/VideoTranslation/VideoTranslation";
 import PassCodeScreen from "./src/screens/PassCode/PassCode";
 import NavigationScreen from "./src/screens/Navigation/Navigation";
+import configureStore from "./src/store/configureStore";
+
+const reduxStore = configureStore();
 
 // Register screens
-Navigation.registerComponent('remote-control.AuthScreen', () => AuthScreen);
+Navigation.registerComponent('remote-control.AuthScreen', () => (props) => (
+  <Provider store={reduxStore}>
+    <AuthScreen {...props} />
+  </Provider>
+), () => AuthScreen);
 Navigation.registerComponent('remote-control.DocumentationScreen', () => DocumentationScreen);
 Navigation.registerComponent('remote-control.CommandsScreen', () => CommandsScreen);
 Navigation.registerComponent('remote-control.PresentationModeScreen', () => PresentationModeScreen);
