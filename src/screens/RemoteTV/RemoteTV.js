@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
 import {
   StyleSheet,
   Text,
@@ -14,7 +15,7 @@ const Value = ({name, value}) => (
   </View>
 )
 
-export default class RemoteTV extends Component {
+class RemoteTV extends Component {
   constructor(props) {
     super(props);
 
@@ -25,7 +26,7 @@ export default class RemoteTV extends Component {
       connected: false
     };
 
-    this.socket = new WebSocket('ws://192.168.1.5:8080/');
+    this.socket = new WebSocket(`ws://${this.props.user.ip}:8080/`);
     this.socket.onopen = () => {
       this.setState({connected:true})
     };
@@ -75,7 +76,7 @@ export default class RemoteTV extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Remote TV page</Text>
+        <Text>Remote TV page {this.props.user.ip}</Text>
         <Text style={styles.headline}>
           Accelerometer values
         </Text>
@@ -87,6 +88,12 @@ export default class RemoteTV extends Component {
     );
   }
 }
+
+function mapStateToProps(state) {
+  return { user: state.users.user }
+}
+
+export default connect(mapStateToProps)(RemoteTV);
 
 const styles = StyleSheet.create({
   container: {

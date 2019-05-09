@@ -26,9 +26,17 @@ Navigation.registerComponent('remote-control.DocumentationScreen', () => Documen
 Navigation.registerComponent('remote-control.CommandsScreen', () => CommandsScreen);
 Navigation.registerComponent('remote-control.PresentationModeScreen', () => PresentationModeScreen);
 Navigation.registerComponent('remote-control.RemoteControlScreen', () => RemoteControlScreen);
-Navigation.registerComponent('remote-control.RemoteTVScreen', () => RemoteTVScreen);
+Navigation.registerComponent('remote-control.RemoteTVScreen', () => (props) => (
+  <Provider store={reduxStore}>
+    <RemoteTVScreen {...props} />
+  </Provider>
+), () => RemoteTVScreen);
 Navigation.registerComponent('remote-control.VideoTranslationScreen', () => VideoTranslationScreen);
-Navigation.registerComponent('remote-control.PassCodeScreen', () => PassCodeScreen);
+Navigation.registerComponent('remote-control.PassCodeScreen', () => (props) => (
+  <Provider store={reduxStore}>
+    <PassCodeScreen {...props} />
+  </Provider>
+), () => PassCodeScreen);
 Navigation.registerComponent('remote-control.NavigationScreen', () => NavigationScreen);
 
 // Start a app

@@ -33,14 +33,14 @@ class Auth extends Component {
 
   loginHandler = () => {
     console.log(`${this.state.email}, ${this.state.password}`)
-    axios.post('http://192.168.1.3:5000/login', {
+    axios.post('https://remotedesktopweb.herokuapp.com/login', {
       email: this.state.email.toString().toLowerCase().trim(),
       password: this.state.password.toString().toLowerCase().trim()
     })
     .then(({ data: user }) => {
-      // startPassCodeScreen();
       // alert(`${user.email}, ${user.password}, ${user.ip}`);
       this.props.onAddUser(user.email, this.state.password.toString().toLowerCase().trim(), user.ip);
+      startPassCodeScreen();
     })
     .catch(function (error) {
       alert(error);

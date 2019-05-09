@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { StyleSheet, Text, View, TextInput, Image } from "react-native";
 
 import logoImage from "../../assets/logo.png";
@@ -7,16 +8,38 @@ import startNavigationScreen from "../MainTabs/StartNavigationScreen";
 
 import DefaultInput from "../../components/UI/DefaultInput";
 
-export default class PassCode extends Component {
+import axios from "axios";
+
+import { addUser } from "../../store/actions/index";
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onAddUser: (email, password, ip) => dispatch(addUser(email, password, ip))
+  }
+};
+
+class PassCode extends Component {
   passCodeHandler = val => {
-    if (val.length == 5 && val.toString() == '12345') {
-      startNavigationScreen();
+    if (val.length == 5) {
+      axios.post('https://remotedesktopweb.herokuapp.com/get-access', {
+        email: this.props.user.email,
+        accessKey: val
+      })
+      .then(({ data }) => {
+        // alert(`${user.email}, ${user.password}, ${user.ip}`);
+        this.props.onAddUser(this.props.user.email, this.props.user.password, data.ip);
+        startNavigationScreen();
+      })
+      .catch(function (error) {
+        alert(error);
+      });
     }
   }
 
   render() {
     return (
       <View style={styles.container}>
+        <Text>{`${this.props.user.email}, ${this.props.user.password}, ${this.props.user.ip}`}</Text>
         <Image
           style={styles.logoImage}
           source={logoImage}
@@ -30,6 +53,12 @@ export default class PassCode extends Component {
     );
   }
 }
+
+function mapStateToProps(state) {
+  return { user: state.users.user }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PassCode);
 
 const styles = StyleSheet.create({
   container: {
