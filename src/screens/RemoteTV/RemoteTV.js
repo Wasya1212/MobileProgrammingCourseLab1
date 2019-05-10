@@ -5,8 +5,10 @@ import {
   Text,
   View
 } from 'react-native';
+import Slider from 'react-native-slider';
 
-import { accelerometer, setUpdateIntervalForType, SensorTypes } from "react-native-sensors";
+import DefaultButton from "../../components/UI/DefaultButton";
+import Controller from "../../libs/controller";
 
 const Value = ({name, value}) => (
   <View style={styles.valueContainer}>
@@ -20,57 +22,63 @@ class RemoteTV extends Component {
     super(props);
 
     this.state = {
+      volumeLevel: 0,
       x: 0,
       y: 0,
       z: 0,
       connected: false
     };
 
-    this.socket = new WebSocket(`ws://${this.props.user.ip}:8080/`);
-    this.socket.onopen = () => {
-      this.setState({connected:true})
-    };
-
-    setUpdateIntervalForType(SensorTypes.accelerometer, 100);
-  }
-
-  emit = data => {
-    if( this.state.connected ) {
-      this.socket.send(JSON.stringify(data));
-    }
+    this.controller = new Controller(this.props.user.ip, {
+      onGetVolume: volumeLevel => {
+        this.setState({ volumeLevel });
+      }
+    });
   }
 
   componentDidMount() {
-    let moveMouse = direction => {
-      this.emit({
-        type: 'control',
-        payload: {
-          controller: 'mouse',
-          direction: direction.toString()
-        }
-      });
-    }
+    setTimeout(() => {
+      this.controller.getVolumeLevel();
+    }, 100)
 
-    const subscription = accelerometer.subscribe(({ x, y, z, timestamp }) => {
-      let direction = 'none';
 
-      this.setState(prevState => {
-        if (x > 3) {
-          moveMouse('left');
-        } else if (x < -3) {
-          moveMouse('right');
-        }
-
-        if (y > 5) {
-          moveMouse('top');
-        } else  if (y < -2) {
-          moveMouse('bottom');
-        }
-        return { x, y, z, direction };
-      });
+    this.controller.listenMoveMouse(({ x, y, z }) => {
+      this.setState({ x, y, z });
     });
+  }
 
-    this.socket.onmessage = ({data}) => console.log(data);
+  clickHandler = () => {
+    this.controller.mouseClick('left');
+  }
+
+  scrollTop = () => {
+    this.controller.mouseScroll('top');
+  }
+
+  scrollBottom = () => {
+    this.controller.mouseScroll('bottom');
+  }
+
+  pauseHandler = () => {
+    this.controller.pressKey('space');
+  }
+
+  fullscreenHandler = () => {
+    this.controller.pressKey('f');
+  }
+
+  backHandler = () => {
+    this.controller.pressKey('left');
+  }
+
+  forwardHandler = () => {
+    this.controller.pressKey('right');
+  }
+
+  volumeHandler = (volumeLevel) => {
+    this.controller.setVolumeLevel(volumeLevel);
+
+    this.setState({volumeLevel});
   }
 
   render() {
@@ -83,7 +91,19 @@ class RemoteTV extends Component {
         <Value name="x" value={this.state.x} />
         <Value name="y" value={this.state.y} />
         <Value name="z" value={this.state.z} />
-        <Value name="direction" value={this.state.direction} />
+        <Slider
+          value={this.state.volumeLevel}
+          onValueChange={this.volumeHandler}
+          style={styles.volumeSlider}
+        />
+        <Text>Value: {this.state.volumeLevel}</Text>
+        <DefaultButton onPress={this.clickHandler}>click</DefaultButton>
+        <DefaultButton onPress={this.scrollTop}>scroll top</DefaultButton>
+        <DefaultButton onPress={this.scrollBottom}>scroll bottom</DefaultButton>
+        <DefaultButton onPress={this.pauseHandler}>pause</DefaultButton>
+        <DefaultButton onPress={this.fullscreenHandler}>fullscreen</DefaultButton>
+        <DefaultButton onPress={this.backHandler}>back</DefaultButton>
+        <DefaultButton onPress={this.forwardHandler}>forward</DefaultButton>
       </View>
     );
   }
@@ -101,6 +121,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
+  },
+  volumeSlider: {
+    width: 150
   },
   headline: {
     fontSize: 30,
