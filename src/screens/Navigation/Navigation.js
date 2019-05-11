@@ -46,14 +46,14 @@ const menuItems = [
     icon: 'live-tv'
   },
   {
-    text: 'Presentation mode screen',
+    text: 'Settings screen',
     key: Math.random(),
     screen: {
-      text: 'Presentation mode',
-      title: 'Presentation mode',
-      name: 'remote-control.PresentationModeScreen'
+      text: 'Settings',
+      title: 'Settings',
+      name: 'remote-control.SettingsScreen'
     },
-    icon: 'airplay'
+    icon: 'settings'
   },
   {
     text: 'Documentation screen',
@@ -89,7 +89,6 @@ export default class MainNavigation extends Component {
   render() {
     return (
       <View>
-        <Text>Navigation page</Text>
         <MenuList items={menuItems} onItemSelected={this.screenSelectedHandler}></MenuList>
       </View>
     );

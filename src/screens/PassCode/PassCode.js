@@ -39,12 +39,12 @@ class PassCode extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>{`${this.props.user.email}, ${this.props.user.password}, ${this.props.user.ip}`}</Text>
         <Image
           style={styles.logoImage}
           source={logoImage}
         />
         <DefaultInput
+          keyboardType="numeric"
           placeholder="Enter your pass code..."
           onChangeText={this.passCodeHandler}
           style={styles.passInput}

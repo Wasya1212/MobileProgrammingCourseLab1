@@ -6,7 +6,7 @@ import { Navigation } from "react-native-navigation";
 import AuthScreen from "./src/screens/Auth/Auth";
 import DocumentationScreen from "./src/screens/Documentation/Documentation";
 import CommandsScreen from "./src/screens/Commands/Commands";
-import PresentationModeScreen from "./src/screens/PresentationMode/PresentationMode";
+import SettingsScreen from "./src/screens/Settings/Settings";
 import RemoteControlScreen from "./src/screens/RemoteControl/RemoteControl";
 import RemoteTVScreen from "./src/screens/RemoteTV/RemoteTV";
 import VideoTranslationScreen from "./src/screens/VideoTranslation/VideoTranslation";
@@ -24,8 +24,12 @@ Navigation.registerComponent('remote-control.AuthScreen', () => (props) => (
 ), () => AuthScreen);
 Navigation.registerComponent('remote-control.DocumentationScreen', () => DocumentationScreen);
 Navigation.registerComponent('remote-control.CommandsScreen', () => CommandsScreen);
-Navigation.registerComponent('remote-control.PresentationModeScreen', () => PresentationModeScreen);
-Navigation.registerComponent('remote-control.RemoteControlScreen', () => RemoteControlScreen);
+Navigation.registerComponent('remote-control.SettingsScreen', () => SettingsScreen);
+Navigation.registerComponent('remote-control.RemoteControlScreen', () => (props) => (
+  <Provider store={reduxStore}>
+    <RemoteControlScreen {...props} />
+  </Provider>
+), () => RemoteControlScreen);
 Navigation.registerComponent('remote-control.RemoteTVScreen', () => (props) => (
   <Provider store={reduxStore}>
     <RemoteTVScreen {...props} />

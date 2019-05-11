@@ -34,6 +34,13 @@ export default class Controller {
     }
   }
 
+  disconnect() {
+    this.socket.close();
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
+
   listenMoveMouse(callback) {
     let moveMouse = direction => {
       this.emit({

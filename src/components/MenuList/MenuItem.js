@@ -9,12 +9,14 @@ export default class MenuItem extends Component {
 
   render() {
     return (
-      <TouchableOpacity onPress={this.props.onItemSelected}>
-        {
-          this.props.icon ? (<Icon name={this.props.icon} size={30} color="#900" />) : null
-        }
-        {this.props.children}
-      </TouchableOpacity>
+      <View style={this.props.style}>
+        <TouchableOpacity onPress={this.props.onItemSelected}>
+          {
+            this.props.icon ? (<Icon name={this.props.icon} size={this.props.iconSize} color="#fff" />) : null
+          }
+          {this.props.children}
+        </TouchableOpacity>
+      </View>
     );
   }
 }

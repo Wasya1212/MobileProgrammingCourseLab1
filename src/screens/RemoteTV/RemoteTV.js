@@ -3,9 +3,11 @@ import { connect } from "react-redux";
 import {
   StyleSheet,
   Text,
-  View
+  View,
+  ScrollView
 } from 'react-native';
 import Slider from 'react-native-slider';
+import Icon from 'react-native-vector-icons/dist/MaterialIcons';
 
 import DefaultButton from "../../components/UI/DefaultButton";
 import Controller from "../../libs/controller";
@@ -47,6 +49,11 @@ class RemoteTV extends Component {
     });
   }
 
+  componentWillUnmount() {
+    this.controller.disconnect();
+    delete this.controller;
+  }
+
   clickHandler = () => {
     this.controller.mouseClick('left');
   }
@@ -83,27 +90,45 @@ class RemoteTV extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Remote TV page {this.props.user.ip}</Text>
-        <Text style={styles.headline}>
-          Accelerometer values
-        </Text>
-        <Value name="x" value={this.state.x} />
-        <Value name="y" value={this.state.y} />
-        <Value name="z" value={this.state.z} />
-        <Slider
-          value={this.state.volumeLevel}
-          onValueChange={this.volumeHandler}
-          style={styles.volumeSlider}
-        />
-        <Text>Value: {this.state.volumeLevel}</Text>
-        <DefaultButton onPress={this.clickHandler}>click</DefaultButton>
-        <DefaultButton onPress={this.scrollTop}>scroll top</DefaultButton>
-        <DefaultButton onPress={this.scrollBottom}>scroll bottom</DefaultButton>
-        <DefaultButton onPress={this.pauseHandler}>pause</DefaultButton>
-        <DefaultButton onPress={this.fullscreenHandler}>fullscreen</DefaultButton>
-        <DefaultButton onPress={this.backHandler}>back</DefaultButton>
-        <DefaultButton onPress={this.forwardHandler}>forward</DefaultButton>
+      <View style={[styles.container, styles.mainContainer]}>
+        <View>
+          <DefaultButton onPress={this.clickHandler}>
+            <Icon name="touch-app" size={100} color="#368fce" />
+          </DefaultButton>
+        </View>
+        <View style={styles.containerRow}>
+          <View style={styles.volumeSliderContainer}>
+            <Slider
+              value={this.state.volumeLevel}
+              onValueChange={this.volumeHandler}
+              style={styles.volumeSlider}
+              thumbTintColor="#368fce"
+            />
+            <Text>Volume: {Math.floor(this.state.volumeLevel * 100)}</Text>
+          </View>
+          <View>
+            <DefaultButton onPress={this.scrollTop}>
+              <Icon name="keyboard-arrow-up" size={50} color="#368fce" />
+            </DefaultButton>
+            <DefaultButton onPress={this.scrollBottom}>
+              <Icon name="keyboard-arrow-down" size={50} color="#368fce" />
+            </DefaultButton>
+          </View>
+        </View>
+        <View style={styles.containerRow}>
+          <DefaultButton onPress={this.backHandler}>
+            <Icon name="arrow-back" size={50} color="#368fce" />
+          </DefaultButton>
+          <DefaultButton onPress={this.pauseHandler}>
+            <Icon name="pause-circle-outline" size={50} color="#368fce" />
+          </DefaultButton>
+          <DefaultButton onPress={this.forwardHandler}>
+            <Icon name="arrow-forward" size={50} color="#368fce" />
+          </DefaultButton>
+          <DefaultButton onPress={this.fullscreenHandler}>
+            <Icon name="aspect-ratio" size={50} color="#368fce" />
+          </DefaultButton>
+        </View>
       </View>
     );
   }
@@ -116,14 +141,28 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps)(RemoteTV);
 
 const styles = StyleSheet.create({
+  mainContainer: {
+    paddingBottom: 50,
+    paddingTop: 50,
+    justifyContent: 'flex-start'
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
+  containerRow: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between'
+  },
   volumeSlider: {
-    width: 150
+    width: 200
+  },
+  volumeSliderContainer: {
+    marginRight: 25
   },
   headline: {
     fontSize: 30,

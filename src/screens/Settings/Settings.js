@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { View, Text } from "react-native";
 
-export default class PresentationMode extends Component {
+export default class Settings extends Component {
   render() {
     return (
       <View>
-        <Text>Presentation mode page</Text>
+        <Text>Settings page</Text>
       </View>
     );
   }

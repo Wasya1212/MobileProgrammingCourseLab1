@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from 'redux'
-import { View, Text, Button, AsyncStorage } from "react-native";
+import { View, Text, Button, AsyncStorage, StyleSheet } from "react-native";
 
 import startPassCodeScreen from "../MainTabs/StartPassCodeScreen";
 
 import DefaultInput from "../../components/UI/DefaultInput";
 import DefaultButton from "../../components/UI/DefaultButton";
+import DefaultTitle from "../../components/UI/DefaultTitle";
 
 import axios from "axios";
 
@@ -84,14 +85,42 @@ class Auth extends Component {
 
   render() {
     return (
-      <View>
-        <DefaultInput textContentType="emailAddress" placeholder="Email" value={this.state.email} onChangeText={this.changeEmailLoginData} />
-        <DefaultInput textContentType="password" placeholder="Password" value={this.state.password} onChangeText={this.changePasswordLoginData} />
-        <DefaultButton onPress={this.loginHandler}>Sign in</DefaultButton>
+      <View style={styles.container}>
+        <DefaultTitle style={styles.title}>Login</DefaultTitle>
+        <DefaultInput style={styles.input} textContentType="emailAddress" placeholder="Email" value={this.state.email} onChangeText={this.changeEmailLoginData} />
+        <DefaultInput style={styles.input} password={true} secureTextEntry={true} textContentType="password" placeholder="Password" value={this.state.password} onChangeText={this.changePasswordLoginData} />
+        <DefaultButton style={styles.submitBtn} onPress={this.loginHandler}>
+          <Text style={styles.text}>Sign in</Text>
+        </DefaultButton>
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  submitBtn: {
+    padding: 15,
+    borderColor: '#368fce',
+    borderWidth: 2,
+    backgroundColor: '#368fce'
+  },
+  text: {
+    color: '#fff'
+  },
+  input: {
+    borderColor: '#368fce',
+    marginBottom: 25
+  },
+  title: {
+    color: '#368fce',
+    marginBottom: 25
+  }
+});
 
 function mapStateToProps(state) {
   return { user: state.users.user }
