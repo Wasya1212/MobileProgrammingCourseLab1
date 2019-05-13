@@ -8,6 +8,7 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.sensors.RNSensorsPackage;
+import com.horcrux.svg.SvgPackage;
 
 import com.reactnativenavigation.NavigationApplication;
 import com.reactnativenavigation.react.NavigationReactNativeHost;
@@ -75,7 +76,8 @@ public class MainApplication extends NavigationApplication {
                             return Arrays.<ReactPackage>asList(
                         // eg. new VectorIconsPackage()
                         new VectorIconsPackage(),
-                                    new RNSensorsPackage()
+                                    new RNSensorsPackage(),
+                                    new SvgPackage()
                             );
         }
 
